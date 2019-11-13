@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="piK-nk-P9i">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Barcode Scanner View Controller-->
+        <scene sceneID="hac-5K-6Hd">
+            <objects>
+                <viewController id="piK-nk-P9i" customClass="BarcodeScannerViewController" customModule="CarInspection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MMZ-8o-e8Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="ulz-Dp-B1H"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NnF-v8-30E">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Barcode is detected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsa-fc-7Yz">
+                                <rect key="frame" x="0.0" y="822" width="414" height="40"/>
+                                <color key="backgroundColor" red="0.66666668650000005" green="0.66666668650000005" blue="0.66666668650000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="1Gd-JU-Vkg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BYZ-zb-BwE">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="822"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="BYZ-zb-BwE" firstAttribute="top" secondItem="NnF-v8-30E" secondAttribute="top" id="4wN-aL-Cme"/>
+                            <constraint firstItem="BYZ-zb-BwE" firstAttribute="leading" secondItem="Vsa-fc-7Yz" secondAttribute="leading" id="F0V-7P-bQ5"/>
+                            <constraint firstItem="Vsa-fc-7Yz" firstAttribute="top" secondItem="BYZ-zb-BwE" secondAttribute="bottom" id="WkV-Rb-q2O"/>
+                            <constraint firstAttribute="trailing" secondItem="Vsa-fc-7Yz" secondAttribute="trailing" id="chv-a0-F0I"/>
+                            <constraint firstItem="Vsa-fc-7Yz" firstAttribute="leading" secondItem="NnF-v8-30E" secondAttribute="leading" id="mxi-D5-R2i"/>
+                            <constraint firstItem="BYZ-zb-BwE" firstAttribute="trailing" secondItem="Vsa-fc-7Yz" secondAttribute="trailing" id="wcm-4Q-A0V"/>
+                            <constraint firstItem="Vsa-fc-7Yz" firstAttribute="bottom" secondItem="ulz-Dp-B1H" secondAttribute="top" id="zuh-94-hx9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KhH-Lr-wFz"/>
+                    </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="Vsa-fc-7Yz" id="lnt-in-u40"/>
+                        <outlet property="videoView" destination="BYZ-zb-BwE" id="FIE-4r-brF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gbV-99-mea" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="252" y="-119"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vxh-hn-v2S">
+            <objects>
+                <viewController id="NXq-uY-SLl" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C4M-UJ-uMJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="68t-ba-3Nc"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9j6-9d-vU0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="928" y="-119"/>
+        </scene>
+    </scenes>
+</document>
