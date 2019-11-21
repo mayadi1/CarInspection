@@ -13,22 +13,34 @@ import AVFoundation
 class BarcodeScannerViewController: BaseViewController {
     // MARK: - UI objects
     
-    @IBOutlet private var messageLabel:UILabel!
     @IBOutlet private var videoView:UIView!
     
     private var captureSession:AVCaptureSession?
     private var videoPreviewLayer:AVCaptureVideoPreviewLayer?
-    private var qrCodeFrameView:UIView?
     private var captureDevice:AVCaptureDevice?
     
     private var lastCapturedCode:String?
     public var barcodeScanned:((String) -> ())?
     private var allowedTypes = [ AVMetadataObject.ObjectType.upce,
                                 AVMetadataObject.ObjectType.code39 ]
+    
+    
+    //MARK: - IBoutlet
+    
+    @IBOutlet private var vinTextLabel: UILabel!
+    @IBOutlet private var nextButton: UIButton!
+    
+ 
     // MARK: - View controller methods
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "Step 1 of 4"
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nextButton.isEnabled = false
         
         // Retrieve the default capturing device for using the camera
         self.captureDevice = AVCaptureDevice.default(for: .video)
@@ -69,17 +81,6 @@ class BarcodeScannerViewController: BaseViewController {
                     // Start video capture.
                     captureSession.startRunning()
                     
-                    // Move the message label to the top view
-                    view.bringSubviewToFront(messageLabel)
-                    
-                    // Initialize QR Code Frame to highlight the QR code
-                    qrCodeFrameView = UIView()
-                    qrCodeFrameView?.layer.borderColor = UIColor.red.cgColor
-                    qrCodeFrameView?.layer.borderWidth = 2
-                    qrCodeFrameView?.autoresizingMask = [UIView.AutoresizingMask.flexibleTopMargin, UIView.AutoresizingMask.flexibleBottomMargin, UIView.AutoresizingMask.flexibleLeftMargin, UIView.AutoresizingMask.flexibleRightMargin]
-                    
-                    view.addSubview(qrCodeFrameView!)
-                    view.bringSubviewToFront(qrCodeFrameView!)
                 }
             }
         } catch let error1 as NSError {
@@ -88,81 +89,31 @@ class BarcodeScannerViewController: BaseViewController {
         }
     }
     
-    public override func viewWillLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        videoPreviewLayer?.frame = self.videoView.layer.bounds
-        
-        let orientation = UIApplication.shared.statusBarOrientation
-        
-        if let videoPreviewLayer = self.videoPreviewLayer {
-            switch(orientation) {
-            case UIInterfaceOrientation.landscapeLeft:
-                videoPreviewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
-                
-            case UIInterfaceOrientation.landscapeRight:
-                videoPreviewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight
-                
-            case UIInterfaceOrientation.portrait:
-                videoPreviewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-                
-            case UIInterfaceOrientation.portraitUpsideDown:
-                videoPreviewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portraitUpsideDown
-                
-            default:
-                print("Unknown orientation state")
-            }
-        }
-    }
-    
-    public override func viewDidLayoutSubviews() {
-        
-    }
-    
-    public override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        videoPreviewLayer?.frame = videoView.layer.bounds
-    }
-    
-    // DIFFERENT FUNCTION, i fixed in maybe rascor?!
-    // func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection)
     public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        
-        // Check if the metadataObjects array is not nil and it contains at least one object.
-        if metadataObjects.count == 0 {
-            qrCodeFrameView?.frame = CGRect.zero
-            messageLabel.text = "No Barcode is detected"
-            return
-        }
-        
+                
         // Get the metadata object.
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         
         if self.allowedTypes.contains(metadataObj.type) {
-            // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
-            let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject
+ 
+            if let code = metadataObj.stringValue {
+                lastCapturedCode = code
+                captureSession?.stopRunning()
             
-            qrCodeFrameView?.frame = barCodeObject.bounds;
-            
-            if metadataObj.stringValue != nil {
-                messageLabel.text = metadataObj.stringValue
-                lastCapturedCode = metadataObj.stringValue
+                let attributedString = NSMutableAttributedString(string: "Vin: \(code)", attributes: [
+                  .foregroundColor: UIColor.init(named: "gray") ?? UIColor.systemGray
+                ])
                 
-                print("Scanned barcode: \(String(describing: metadataObj.stringValue))")
-            }
+                attributedString.addAttributes([
+                  .foregroundColor: UIColor.systemBlue,
+                  .font: UIFont.systemFont(ofSize: 19.0, weight: .bold),
+                ], range: NSRange(location: 4, length: code.length))
+                
+                vinTextLabel.attributedText = attributedString
+                nextButton.backgroundColor = .systemBlue
+                nextButton.isEnabled = true
+             }
         }
-    }
-    
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        _ = self.navigationController?.popViewController(animated: true)
-        
-        if let barcodeScannedTemp = barcodeScanned, let lastCapturedCodeTemp = lastCapturedCode  {
-            // Notify via callback
-            barcodeScannedTemp(lastCapturedCodeTemp)
-        }
-    }
-
-    public override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 }
 

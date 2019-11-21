@@ -7,22 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1892A2942386F55200BA2C94 /* BarcodeManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892A2932386F55200BA2C94 /* BarcodeManuallyViewController.swift */; };
+		1892A2962386F7C500BA2C94 /* UIView+LayerHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892A2952386F7C500BA2C94 /* UIView+LayerHelpers.swift */; };
+		1892A298238707CE00BA2C94 /* VinDecoderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892A297238707CE00BA2C94 /* VinDecoderViewController.swift */; };
+		1892A29A2387215100BA2C94 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892A2992387215100BA2C94 /* String.swift */; };
 		18AFF156237BDD39009F3ECF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF155237BDD39009F3ECF /* BaseViewController.swift */; };
 		18AFF159237BDD39009F3ECF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AFF157237BDD39009F3ECF /* Main.storyboard */; };
 		18AFF15B237BDD3C009F3ECF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18AFF15A237BDD3C009F3ECF /* Assets.xcassets */; };
 		18AFF15E237BDD3C009F3ECF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AFF15C237BDD3C009F3ECF /* LaunchScreen.storyboard */; };
 		18AFF166237BDD6B009F3ECF /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF165237BDD6B009F3ECF /* PreviewView.swift */; };
-		18AFF168237BDDA5009F3ECF /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF167237BDDA5009F3ECF /* String.swift */; };
-		18AFF16B237C5AB7009F3ECF /* LicensePlateScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AFF16A237C5AB7009F3ECF /* LicensePlateScanner.storyboard */; };
+		18AFF168237BDDA5009F3ECF /* StringTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF167237BDDA5009F3ECF /* StringTracker.swift */; };
 		18AFF16D237C5D90009F3ECF /* AVCaptureVideoOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF16C237C5D90009F3ECF /* AVCaptureVideoOrientation.swift */; };
 		18AFF170237C5E81009F3ECF /* LicensePlateScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF16F237C5E81009F3ECF /* LicensePlateScannerViewController.swift */; };
 		18AFF172237C65C0009F3ECF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF171237C65C0009F3ECF /* SceneDelegate.swift */; };
 		18AFF174237C6648009F3ECF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF173237C6648009F3ECF /* AppDelegate.swift */; };
-		18AFF176237C6790009F3ECF /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AFF175237C6790009F3ECF /* BarcodeScanner.storyboard */; };
 		18AFF179237C67AE009F3ECF /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF178237C67AE009F3ECF /* BarcodeScannerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1892A2932386F55200BA2C94 /* BarcodeManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeManuallyViewController.swift; sourceTree = "<group>"; };
+		1892A2952386F7C500BA2C94 /* UIView+LayerHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+LayerHelpers.swift"; sourceTree = "<group>"; };
+		1892A297238707CE00BA2C94 /* VinDecoderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinDecoderViewController.swift; sourceTree = "<group>"; };
+		1892A2992387215100BA2C94 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		18AFF14E237BDD39009F3ECF /* CarInspection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarInspection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AFF155237BDD39009F3ECF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		18AFF158237BDD39009F3ECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -30,13 +36,11 @@
 		18AFF15D237BDD3C009F3ECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18AFF15F237BDD3C009F3ECF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18AFF165237BDD6B009F3ECF /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
-		18AFF167237BDDA5009F3ECF /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		18AFF16A237C5AB7009F3ECF /* LicensePlateScanner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LicensePlateScanner.storyboard; sourceTree = "<group>"; };
+		18AFF167237BDDA5009F3ECF /* StringTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTracker.swift; sourceTree = "<group>"; };
 		18AFF16C237C5D90009F3ECF /* AVCaptureVideoOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCaptureVideoOrientation.swift; sourceTree = "<group>"; };
 		18AFF16F237C5E81009F3ECF /* LicensePlateScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateScannerViewController.swift; sourceTree = "<group>"; };
 		18AFF171237C65C0009F3ECF /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		18AFF173237C6648009F3ECF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		18AFF175237C6790009F3ECF /* BarcodeScanner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BarcodeScanner.storyboard; sourceTree = "<group>"; };
 		18AFF178237C67AE009F3ECF /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,8 +91,10 @@
 		18AFF169237BDDA9009F3ECF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				18AFF167237BDDA5009F3ECF /* String.swift */,
+				18AFF167237BDDA5009F3ECF /* StringTracker.swift */,
 				18AFF16C237C5D90009F3ECF /* AVCaptureVideoOrientation.swift */,
+				1892A2952386F7C500BA2C94 /* UIView+LayerHelpers.swift */,
+				1892A2992387215100BA2C94 /* String.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -96,7 +102,6 @@
 		18AFF16E237C5E29009F3ECF /* LicensePlateScanner */ = {
 			isa = PBXGroup;
 			children = (
-				18AFF16A237C5AB7009F3ECF /* LicensePlateScanner.storyboard */,
 				18AFF16F237C5E81009F3ECF /* LicensePlateScannerViewController.swift */,
 				18AFF165237BDD6B009F3ECF /* PreviewView.swift */,
 			);
@@ -106,8 +111,9 @@
 		18AFF177237C6794009F3ECF /* BarcodeScanner */ = {
 			isa = PBXGroup;
 			children = (
-				18AFF175237C6790009F3ECF /* BarcodeScanner.storyboard */,
 				18AFF178237C67AE009F3ECF /* BarcodeScannerViewController.swift */,
+				1892A2932386F55200BA2C94 /* BarcodeManuallyViewController.swift */,
+				1892A297238707CE00BA2C94 /* VinDecoderViewController.swift */,
 			);
 			path = BarcodeScanner;
 			sourceTree = "<group>";
@@ -170,9 +176,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18AFF16B237C5AB7009F3ECF /* LicensePlateScanner.storyboard in Resources */,
 				18AFF15E237BDD3C009F3ECF /* LaunchScreen.storyboard in Resources */,
-				18AFF176237C6790009F3ECF /* BarcodeScanner.storyboard in Resources */,
 				18AFF15B237BDD3C009F3ECF /* Assets.xcassets in Resources */,
 				18AFF159237BDD39009F3ECF /* Main.storyboard in Resources */,
 			);
@@ -187,12 +191,16 @@
 			files = (
 				18AFF170237C5E81009F3ECF /* LicensePlateScannerViewController.swift in Sources */,
 				18AFF172237C65C0009F3ECF /* SceneDelegate.swift in Sources */,
+				1892A2962386F7C500BA2C94 /* UIView+LayerHelpers.swift in Sources */,
+				1892A2942386F55200BA2C94 /* BarcodeManuallyViewController.swift in Sources */,
 				18AFF16D237C5D90009F3ECF /* AVCaptureVideoOrientation.swift in Sources */,
 				18AFF156237BDD39009F3ECF /* BaseViewController.swift in Sources */,
+				1892A29A2387215100BA2C94 /* String.swift in Sources */,
 				18AFF174237C6648009F3ECF /* AppDelegate.swift in Sources */,
 				18AFF166237BDD6B009F3ECF /* PreviewView.swift in Sources */,
 				18AFF179237C67AE009F3ECF /* BarcodeScannerViewController.swift in Sources */,
-				18AFF168237BDDA5009F3ECF /* String.swift in Sources */,
+				1892A298238707CE00BA2C94 /* VinDecoderViewController.swift in Sources */,
+				18AFF168237BDDA5009F3ECF /* StringTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

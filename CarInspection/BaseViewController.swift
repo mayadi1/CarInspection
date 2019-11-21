@@ -15,6 +15,15 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupNavBar()
+    }
+    
+    // MARK: Private func
+    
+    private func setupNavBar() {
+        navigationController?.navigationBar.topItem?.title = ""
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.systemBlue]
     }
 }
 

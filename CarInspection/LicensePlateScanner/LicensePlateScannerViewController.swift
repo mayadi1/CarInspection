@@ -17,8 +17,9 @@ class LicensePlateScannerViewController: BaseViewController {
     
     @IBOutlet private var previewView: PreviewView!
     @IBOutlet private var cutoutView: UIView!
-    @IBOutlet private var numberView: UILabel!
-
+    @IBOutlet private var licensePlateTextLabel: UILabel!
+    @IBOutlet private var nextButton: UIButton!
+    
     private let captureSession = AVCaptureSession()
     private let captureSessionQueue = DispatchQueue(label: "ayadios.com.CarInspectionCaptureSessionQueue")
     
@@ -26,34 +27,29 @@ class LicensePlateScannerViewController: BaseViewController {
     private let videoDataOutputQueue = DispatchQueue(label: "ayadios.com.CarInspection.VideoDataOutputQueue")
     
     private var regionOfInterest = CGRect(x: 0, y: 0, width: 1, height: 1)
-    private var textOrientation = CGImagePropertyOrientation.up
+    private var textOrientation = CGImagePropertyOrientation.right
     
     private var bufferAspectRatio: Double!
     private var uiRotationTransform = CGAffineTransform.identity
-    private var bottomToTopTransform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -1)
+    private var bottomToTopTransform = CGAffineTransform.identity
     private var roiToGlobalTransform = CGAffineTransform.identity
     
     private var visionToAVFTransform = CGAffineTransform.identity
     private var maskLayer = CAShapeLayer()
-    private var currentOrientation = UIDeviceOrientation.portrait
     private var request: VNRecognizeTextRequest!
     private var captureDevice: AVCaptureDevice?
     private let numberTracker = StringTracker()
     private var boxLayer = [CAShapeLayer]()
     
     // MARK: - View controller methods
-    
-    override func viewDidLoad() {
-        // Set up vision request so it exists when the first buffer is received.
-        request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-        
-        super.viewDidLoad()
-        
+
+    override func viewWillAppear(_ animated: Bool) {
         // Set up preview view.
         previewView.session = captureSession
         
         // Set up cutout view.
-        cutoutView.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        cutoutView.backgroundColor = UIColor.init(named: "gray")
+    
         maskLayer.backgroundColor = UIColor.clear.cgColor
         maskLayer.fillRule = .evenOdd
         cutoutView.layer.mask = maskLayer
@@ -67,24 +63,15 @@ class LicensePlateScannerViewController: BaseViewController {
         }
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-
-        let deviceOrientation = UIDevice.current.orientation
-        if deviceOrientation.isPortrait || deviceOrientation.isLandscape {
-            currentOrientation = deviceOrientation
-        }
+    override func viewDidLoad() {
+        // Set up vision request so it exists when the first buffer is received.
+        request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
         
-        // Handle device orientation in the preview layer.
-        if let videoPreviewLayerConnection = previewView.videoPreviewLayer.connection {
-            if let newVideoOrientation = AVCaptureVideoOrientation(deviceOrientation: deviceOrientation) {
-                videoPreviewLayerConnection.videoOrientation = newVideoOrientation
-            }
-        }
+        super.viewDidLoad()
         
-        // Orientation changed: figure out new region of interest (ROI).
-        calculateRegionOfInterest()
+        nextButton.isEnabled = false
     }
+
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -94,23 +81,19 @@ class LicensePlateScannerViewController: BaseViewController {
     // MARK: - Setup
     
     private func calculateRegionOfInterest() {
-        let desiredHeightRatio = 0.16
-        let desiredWidthRatio = 0.3
-        let maxPortraitWidth = 0.8
+        let desiredHeightRatio = 0.8
+        let desiredWidthRatio = 1.0
+        let maxPortraitWidth = 1.0
         
         // Figure out size of ROI.
         let size: CGSize
-        if currentOrientation.isPortrait || currentOrientation == .unknown {
-            size = CGSize(width: min(desiredWidthRatio * bufferAspectRatio, maxPortraitWidth), height: desiredHeightRatio / bufferAspectRatio)
-        } else {
-            size = CGSize(width: desiredWidthRatio, height: desiredHeightRatio)
-        }
+        size = CGSize(width: min(desiredWidthRatio * bufferAspectRatio, maxPortraitWidth), height: desiredHeightRatio / bufferAspectRatio)
 
         regionOfInterest.origin = CGPoint(x: (1 - size.width) / 2, y: (1 - size.height) / 2)
         regionOfInterest.size = size
 
         setupOrientationAndTransform()
-
+        
         DispatchQueue.main.async {
             self.updateCutout()
         }
@@ -123,32 +106,14 @@ class LicensePlateScannerViewController: BaseViewController {
         let path = UIBezierPath(rect: cutoutView.frame)
         path.append(UIBezierPath(rect: cutout))
         maskLayer.path = path.cgPath
-        
-        var numFrame = cutout
-        numFrame.origin.y += numFrame.size.height
-        numberView.frame = numFrame
     }
     
    private func setupOrientationAndTransform() {
         let roi = regionOfInterest
         roiToGlobalTransform = CGAffineTransform(translationX: roi.origin.x, y: roi.origin.y).scaledBy(x: roi.width, y: roi.height)
         
-        // Compensate for orientation (buffers always come in the same orientation).
-        switch currentOrientation {
-        case .landscapeLeft:
-            textOrientation = CGImagePropertyOrientation.up
-            uiRotationTransform = CGAffineTransform.identity
-        case .landscapeRight:
-            textOrientation = CGImagePropertyOrientation.down
-            uiRotationTransform = CGAffineTransform(translationX: 1, y: 1).rotated(by: CGFloat.pi)
-        case .portraitUpsideDown:
-            textOrientation = CGImagePropertyOrientation.left
-            uiRotationTransform = CGAffineTransform(translationX: 1, y: 0).rotated(by: CGFloat.pi / 2)
-        default:
-            textOrientation = CGImagePropertyOrientation.right
-            uiRotationTransform = CGAffineTransform(translationX: 0, y: 1).rotated(by: -CGFloat.pi / 2)
-        }
-        
+        uiRotationTransform = CGAffineTransform(translationX: 0, y: 1).rotated(by: -CGFloat.pi / 2)
+    
         visionToAVFTransform = roiToGlobalTransform.concatenating(bottomToTopTransform).concatenating(uiRotationTransform)
     }
     
@@ -276,19 +241,19 @@ class LicensePlateScannerViewController: BaseViewController {
         captureSessionQueue.sync {
             self.captureSession.stopRunning()
             DispatchQueue.main.async {
-                self.numberView.text = string
-                self.numberView.isHidden = false
-            }
-        }
-    }
-    
-    @IBAction private func handleTap(_ sender: UITapGestureRecognizer) {
-        captureSessionQueue.async {
-            if !self.captureSession.isRunning {
-                self.captureSession.startRunning()
-            }
-            DispatchQueue.main.async {
-                self.numberView.isHidden = true
+                
+                let attributedString = NSMutableAttributedString(string: "Vin: \(string)", attributes: [
+                    .foregroundColor: UIColor.init(named: "gray") ?? UIColor.systemGray
+                ])
+                
+                attributedString.addAttributes([
+                  .foregroundColor: UIColor.systemBlue,
+                  .font: UIFont.systemFont(ofSize: 19.0, weight: .bold),
+                ], range: NSRange(location: 4, length: string.length))
+                
+                self.licensePlateTextLabel.attributedText = attributedString
+                self.nextButton.backgroundColor = .systemBlue
+                self.nextButton.isEnabled = true
             }
         }
     }
