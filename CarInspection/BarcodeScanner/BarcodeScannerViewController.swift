@@ -20,12 +20,9 @@ class BarcodeScannerViewController: BaseViewController {
     private var captureSession:AVCaptureSession?
     private var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     private var captureDevice:AVCaptureDevice?
-    private let photoOutput = AVCapturePhotoOutput()
  
     private var lastCapturedCode:String?
-    public var barcodeScanned:((String) -> ())?
-    private var allowedTypes = [ AVMetadataObject.ObjectType.upce,
-                                AVMetadataObject.ObjectType.code39 ]
+    private var allowedTypes: [AVMetadataObject.ObjectType] = [.code128, .code39, .code93, .upce, .code39Mod43, .pdf417, .ean13, .ean8, .aztec]
 
     // MARK: - View controller methods
     
@@ -62,7 +59,6 @@ class BarcodeScannerViewController: BaseViewController {
                 // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
                 let captureMetadataOutput = AVCaptureMetadataOutput()
                 captureSession?.addOutput(captureMetadataOutput)
-                captureSession?.addOutput(photoOutput)
 
                 // Set delegate and use the default dispatch queue to execute the call back
                 captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
@@ -95,9 +91,6 @@ class BarcodeScannerViewController: BaseViewController {
         if self.allowedTypes.contains(metadataObj.type) {
  
             if let code = metadataObj.stringValue {
-                let photoSettings = AVCapturePhotoSettings()
-                photoOutput.capturePhoto(with: photoSettings, delegate: self)
-                
                 lastCapturedCode = code
                 captureSession?.stopRunning()
             
@@ -121,18 +114,4 @@ class BarcodeScannerViewController: BaseViewController {
 
 extension BarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
     
-}
-
-extension BarcodeScannerViewController: AVCapturePhotoCaptureDelegate {
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        guard let imageData = photo.fileDataRepresentation() else {
-            print("Error while generating image from photo capture data.");
-            return
-        }
-        guard let barcodeImage = UIImage(data: imageData) else {
-            print("Unable to generate UIImage from image data.");
-            return
-        }
-        Car.current.barcodeImage = barcodeImage
-     }
 }

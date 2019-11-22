@@ -16,6 +16,7 @@ class VinDecoderViewController: BaseViewController {
     @IBOutlet private var makeLabel: UILabel!
     @IBOutlet private var modelLabel: UILabel!
     @IBOutlet private var yearLabel: UILabel!
+    @IBOutlet private var topVinLabel: UILabel!
     @IBOutlet private var vinLabel: UILabel!
     @IBOutlet private var classLabel: UILabel!
     @IBOutlet private var transmissionLabel: UILabel!
@@ -25,8 +26,9 @@ class VinDecoderViewController: BaseViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         guard let vin = Car.current.vin else { return }
-        barcodeImage.image = Car.current.barcodeImage
-        VehicleAPI.shared.decodeVin(vin: vin) { (err) in
+         barcodeImage.image = UIImage(barcode: vin)
+        
+         VehicleAPI.shared.decodeVin(vin: vin) { (err) in
             DispatchQueue.main.async {
                 self.displayCarInfo()
             }
@@ -40,6 +42,7 @@ class VinDecoderViewController: BaseViewController {
         modelLabel.text = Car.current.model
         yearLabel.text = Car.current.year
         vinLabel.text = Car.current.vin
+        topVinLabel.text = Car.current.vin
         classLabel.text = Car.current.bodyClass
         transmissionLabel.text = Car.current.transmissionStyle
     }

@@ -25,7 +25,9 @@
 		18AFF179237C67AE009F3ECF /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AFF178237C67AE009F3ECF /* BarcodeScannerViewController.swift */; };
 		18B8EF772387B8D200C32A35 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8EF762387B8D200C32A35 /* API.swift */; };
 		18B8EF7A2387CFD900C32A35 /* LicensePlateManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8EF792387CFD900C32A35 /* LicensePlateManuallyViewController.swift */; };
-		18B8EF7C23884E8400C32A35 /* BarcodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8EF7B23884E8400C32A35 /* BarcodeScanner.swift */; };
+		18B8EF7E238859BE00C32A35 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8EF7D238859BE00C32A35 /* UIImage.swift */; };
+		18B8EF80238862BA00C32A35 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8EF7F238862BA00C32A35 /* HomeViewController.swift */; };
+		18B8EF822388635100C32A35 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8EF812388635100C32A35 /* UIViewController.swift */; };
 		89897AFC7D29833A7B98183C /* Pods_CarInspection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3643D243E83EADF52585F7C /* Pods_CarInspection.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,7 +52,9 @@
 		18AFF178237C67AE009F3ECF /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		18B8EF762387B8D200C32A35 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		18B8EF792387CFD900C32A35 /* LicensePlateManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensePlateManuallyViewController.swift; sourceTree = "<group>"; };
-		18B8EF7B23884E8400C32A35 /* BarcodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScanner.swift; sourceTree = "<group>"; };
+		18B8EF7D238859BE00C32A35 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		18B8EF7F238862BA00C32A35 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		18B8EF812388635100C32A35 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		4FD556BDAFF03CD6D06FE576 /* Pods-CarInspection.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarInspection.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarInspection/Pods-CarInspection.release.xcconfig"; sourceTree = "<group>"; };
 		6F30B70CB31207B8A1ACE0C8 /* Pods-CarInspection.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarInspection.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarInspection/Pods-CarInspection.debug.xcconfig"; sourceTree = "<group>"; };
 		C3643D243E83EADF52585F7C /* Pods_CarInspection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarInspection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +104,7 @@
 				18AFF173237C6648009F3ECF /* AppDelegate.swift */,
 				18AFF171237C65C0009F3ECF /* SceneDelegate.swift */,
 				18AFF155237BDD39009F3ECF /* BaseViewController.swift */,
+				18B8EF7F238862BA00C32A35 /* HomeViewController.swift */,
 				18AFF157237BDD39009F3ECF /* Main.storyboard */,
 				18AFF177237C6794009F3ECF /* BarcodeScanner */,
 				18AFF16E237C5E29009F3ECF /* LicensePlateScanner */,
@@ -120,6 +125,8 @@
 				18AFF16C237C5D90009F3ECF /* AVCaptureVideoOrientation.swift */,
 				1892A2952386F7C500BA2C94 /* UIView+LayerHelpers.swift */,
 				1892A2992387215100BA2C94 /* String.swift */,
+				18B8EF7D238859BE00C32A35 /* UIImage.swift */,
+				18B8EF812388635100C32A35 /* UIViewController.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -140,7 +147,6 @@
 				18AFF178237C67AE009F3ECF /* BarcodeScannerViewController.swift */,
 				1892A2932386F55200BA2C94 /* BarcodeManuallyViewController.swift */,
 				1892A297238707CE00BA2C94 /* VinDecoderViewController.swift */,
-				18B8EF7B23884E8400C32A35 /* BarcodeScanner.swift */,
 			);
 			path = BarcodeScanner;
 			sourceTree = "<group>";
@@ -292,14 +298,16 @@
 			files = (
 				18B8EF7A2387CFD900C32A35 /* LicensePlateManuallyViewController.swift in Sources */,
 				18AFF170237C5E81009F3ECF /* LicensePlateScannerViewController.swift in Sources */,
+				18B8EF822388635100C32A35 /* UIViewController.swift in Sources */,
 				18AFF172237C65C0009F3ECF /* SceneDelegate.swift in Sources */,
+				18B8EF80238862BA00C32A35 /* HomeViewController.swift in Sources */,
 				1892A2962386F7C500BA2C94 /* UIView+LayerHelpers.swift in Sources */,
 				1892A2942386F55200BA2C94 /* BarcodeManuallyViewController.swift in Sources */,
 				18A1B56F2387652A00704256 /* Car.swift in Sources */,
 				18AFF16D237C5D90009F3ECF /* AVCaptureVideoOrientation.swift in Sources */,
 				18B8EF772387B8D200C32A35 /* API.swift in Sources */,
 				18AFF156237BDD39009F3ECF /* BaseViewController.swift in Sources */,
-				18B8EF7C23884E8400C32A35 /* BarcodeScanner.swift in Sources */,
+				18B8EF7E238859BE00C32A35 /* UIImage.swift in Sources */,
 				1892A29A2387215100BA2C94 /* String.swift in Sources */,
 				18AFF174237C6648009F3ECF /* AppDelegate.swift in Sources */,
 				18AFF166237BDD6B009F3ECF /* PreviewView.swift in Sources */,
