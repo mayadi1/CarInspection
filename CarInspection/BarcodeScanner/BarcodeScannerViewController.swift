@@ -14,23 +14,19 @@ class BarcodeScannerViewController: BaseViewController {
     // MARK: - UI objects
     
     @IBOutlet private var videoView:UIView!
+    @IBOutlet private var vinTextLabel: UILabel!
+    @IBOutlet private var nextButton: UIButton!
     
     private var captureSession:AVCaptureSession?
     private var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     private var captureDevice:AVCaptureDevice?
-    
+    private let photoOutput = AVCapturePhotoOutput()
+ 
     private var lastCapturedCode:String?
     public var barcodeScanned:((String) -> ())?
     private var allowedTypes = [ AVMetadataObject.ObjectType.upce,
                                 AVMetadataObject.ObjectType.code39 ]
-    
-    
-    //MARK: - IBoutlet
-    
-    @IBOutlet private var vinTextLabel: UILabel!
-    @IBOutlet private var nextButton: UIButton!
-    
- 
+
     // MARK: - View controller methods
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +35,7 @@ class BarcodeScannerViewController: BaseViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         nextButton.isEnabled = false
         
@@ -65,7 +62,8 @@ class BarcodeScannerViewController: BaseViewController {
                 // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
                 let captureMetadataOutput = AVCaptureMetadataOutput()
                 captureSession?.addOutput(captureMetadataOutput)
-                
+                captureSession?.addOutput(photoOutput)
+
                 // Set delegate and use the default dispatch queue to execute the call back
                 captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
                 captureMetadataOutput.metadataObjectTypes = self.allowedTypes
@@ -90,13 +88,16 @@ class BarcodeScannerViewController: BaseViewController {
     }
     
     public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-                
+
         // Get the metadata object.
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         
         if self.allowedTypes.contains(metadataObj.type) {
  
             if let code = metadataObj.stringValue {
+                let photoSettings = AVCapturePhotoSettings()
+                photoOutput.capturePhoto(with: photoSettings, delegate: self)
+                
                 lastCapturedCode = code
                 captureSession?.stopRunning()
             
@@ -112,6 +113,7 @@ class BarcodeScannerViewController: BaseViewController {
                 vinTextLabel.attributedText = attributedString
                 nextButton.backgroundColor = .systemBlue
                 nextButton.isEnabled = true
+                Car.current.vin = code
              }
         }
     }
@@ -119,4 +121,18 @@ class BarcodeScannerViewController: BaseViewController {
 
 extension BarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
     
+}
+
+extension BarcodeScannerViewController: AVCapturePhotoCaptureDelegate {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        guard let imageData = photo.fileDataRepresentation() else {
+            print("Error while generating image from photo capture data.");
+            return
+        }
+        guard let barcodeImage = UIImage(data: imageData) else {
+            print("Unable to generate UIImage from image data.");
+            return
+        }
+        Car.current.barcodeImage = barcodeImage
+     }
 }

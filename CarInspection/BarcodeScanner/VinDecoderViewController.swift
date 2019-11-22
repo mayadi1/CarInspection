@@ -8,14 +8,39 @@
 //
 
 import UIKit
+ 
 
 class VinDecoderViewController: BaseViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-     }
+   // MARK: - UI objects
     
+    @IBOutlet private var makeLabel: UILabel!
+    @IBOutlet private var modelLabel: UILabel!
+    @IBOutlet private var yearLabel: UILabel!
+    @IBOutlet private var vinLabel: UILabel!
+    @IBOutlet private var classLabel: UILabel!
+    @IBOutlet private var transmissionLabel: UILabel!
+    @IBOutlet private var barcodeImage: UIImageView!
+    
+    // MARK: - View controller methods
 
- 
+    override func viewWillAppear(_ animated: Bool) {
+        guard let vin = Car.current.vin else { return }
+        barcodeImage.image = Car.current.barcodeImage
+        VehicleAPI.shared.decodeVin(vin: vin) { (err) in
+            DispatchQueue.main.async {
+                self.displayCarInfo()
+            }
+        }
+    }
+        
+    // MARK: - Private methods
+    
+    private func displayCarInfo() {
+        makeLabel.text = Car.current.make
+        modelLabel.text = Car.current.model
+        yearLabel.text = Car.current.year
+        vinLabel.text = Car.current.vin
+        classLabel.text = Car.current.bodyClass
+        transmissionLabel.text = Car.current.transmissionStyle
+    }
 }

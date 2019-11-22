@@ -44,6 +44,8 @@ class LicensePlateScannerViewController: BaseViewController {
     // MARK: - View controller methods
 
     override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "Step 2 of 4"
+        
         // Set up preview view.
         previewView.session = captureSession
         
@@ -256,6 +258,15 @@ class LicensePlateScannerViewController: BaseViewController {
                 self.nextButton.isEnabled = true
             }
         }
+    }
+    
+    //MARK: - Navigation
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        captureSessionQueue.sync {
+            self.captureSession.stopRunning()
+        }
+        return true
     }
 }
 

@@ -13,7 +13,7 @@ class BaseViewController: UIViewController {
     
     // MARK: - View controller methods
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {                             
         super.viewDidLoad()
         
         setupNavBar()
