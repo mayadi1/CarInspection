@@ -74,10 +74,9 @@ class LicensePlateScannerViewController: BaseViewController {
         super.viewDidLoad()
         
         nextButton.isEnabled = false
-        cameraService.prepare(previewView: previewView, cameraPosition: .front) { [weak self] success in
+        cameraService.prepare(previewView: previewView, cameraPosition: .back) { [weak self] success in
             if success { self?.cameraService.start() }
         }
-
     }
 
     
@@ -275,6 +274,7 @@ class LicensePlateScannerViewController: BaseViewController {
     private func capturePhoto() {
          cameraService.capturePhoto { [weak self] image in
             Car.current.licensePlateImage = image
+            self?.cameraService.start()
          }
      }
     
