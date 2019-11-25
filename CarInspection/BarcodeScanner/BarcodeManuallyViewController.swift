@@ -33,6 +33,7 @@ extension BarcodeManuallyViewController: UITextFieldDelegate {
             nextButton.backgroundColor = .systemBlue
             Car.current.vin = vinNumber
         }
+        
         return true
     }
 }

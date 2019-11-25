@@ -754,7 +754,7 @@
         <!--Step 4 of 4-->
         <scene sceneID="KoV-3P-XjD">
             <objects>
-                <viewController id="AYu-Cz-YiD" sceneMemberID="viewController">
+                <viewController id="AYu-Cz-YiD" customClass="SuccessViewController" customModule="CarInspection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eu5-sF-3RH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -767,18 +767,78 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="JLl-Sa-hY7"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arQ-pN-FWb">
+                                <rect key="frame" x="171" y="502" width="72" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="4U8-nL-trc"/>
+                                    <constraint firstAttribute="width" constant="72" id="5SL-Lh-cZD"/>
+                                    <constraint firstAttribute="height" constant="23" id="rOt-Pr-oez"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="xza-6j-FTl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" name="gray"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C4E-fX-CCa">
+                                <rect key="frame" x="30.5" y="119" width="353" height="353"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="353" id="4xs-yq-yKv"/>
+                                    <constraint firstAttribute="width" constant="353" id="v48-JI-pgM"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xJR-Nu-iyW">
+                                <rect key="frame" x="12" y="798" width="390" height="54"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="1ka-Yt-4Wq"/>
+                                    <constraint firstAttribute="height" constant="54" id="iPi-8t-L5D"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="DONE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The vehicle has been successfully checked in." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJE-nE-2va">
+                                <rect key="frame" x="30.5" y="535" width="353" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="7N3-9A-Gjr"/>
+                                    <constraint firstAttribute="width" constant="353" id="c7o-Vk-qYe"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="353" id="d1M-0G-33s"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="usJ-qa-IE5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="gray"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="xJR-Nu-iyW" firstAttribute="leading" secondItem="8Jb-73-0EU" secondAttribute="leading" constant="12" id="BlH-Kk-SBZ"/>
                             <constraint firstItem="FKc-T8-8Iq" firstAttribute="trailing" secondItem="8Jb-73-0EU" secondAttribute="trailing" id="Cl2-Lt-IxE"/>
+                            <constraint firstItem="C4E-fX-CCa" firstAttribute="centerX" secondItem="eu5-sF-3RH" secondAttribute="centerX" id="FGI-8J-ZLT"/>
+                            <constraint firstItem="8Jb-73-0EU" firstAttribute="bottom" secondItem="xJR-Nu-iyW" secondAttribute="bottom" constant="10" id="Nbw-lS-duQ"/>
                             <constraint firstItem="FKc-T8-8Iq" firstAttribute="leading" secondItem="8Jb-73-0EU" secondAttribute="leading" id="VSR-c1-ApB"/>
                             <constraint firstItem="FKc-T8-8Iq" firstAttribute="top" secondItem="8Jb-73-0EU" secondAttribute="top" id="cLf-zO-K4i"/>
+                            <constraint firstItem="C4E-fX-CCa" firstAttribute="top" secondItem="FKc-T8-8Iq" secondAttribute="bottom" constant="30" id="eBK-YG-w4y"/>
+                            <constraint firstItem="vJE-nE-2va" firstAttribute="top" secondItem="arQ-pN-FWb" secondAttribute="bottom" constant="10" id="fLW-s7-9eI"/>
+                            <constraint firstItem="arQ-pN-FWb" firstAttribute="top" secondItem="C4E-fX-CCa" secondAttribute="bottom" constant="30" id="k5h-6v-gji"/>
+                            <constraint firstItem="vJE-nE-2va" firstAttribute="centerX" secondItem="eu5-sF-3RH" secondAttribute="centerX" id="q92-Nz-hIy"/>
+                            <constraint firstItem="arQ-pN-FWb" firstAttribute="centerX" secondItem="eu5-sF-3RH" secondAttribute="centerX" id="qbV-zh-K2D"/>
+                            <constraint firstItem="8Jb-73-0EU" firstAttribute="trailing" secondItem="xJR-Nu-iyW" secondAttribute="trailing" constant="12" id="rEP-Ll-qwJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8Jb-73-0EU"/>
                     </view>
                     <navigationItem key="navigationItem" title="Step 4 of 4" id="gaj-Ce-QJL">
                         <barButtonItem key="rightBarButtonItem" title="Cancel" id="dC8-1j-caz"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="licensePlateImageView" destination="C4E-fX-CCa" id="zAm-9H-hDz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jxe-4R-SmX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -881,7 +941,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Euz-ox-YJ0"/>
-        <segue reference="691-10-1LQ"/>
+        <segue reference="Om3-K7-AWX"/>
+        <segue reference="zea-wJ-n5p"/>
     </inferredMetricsTieBreakers>
 </document>

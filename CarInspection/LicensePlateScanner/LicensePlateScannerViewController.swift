@@ -41,11 +41,13 @@ class LicensePlateScannerViewController: BaseViewController {
     private let numberTracker = StringTracker()
     private var boxLayer = [CAShapeLayer]()
     
+    private lazy var cameraService = CameraService()
+    
     // MARK: - View controller methods
 
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "Step 2 of 4"
-        
+    
         // Set up preview view.
         previewView.session = captureSession
         
@@ -72,6 +74,10 @@ class LicensePlateScannerViewController: BaseViewController {
         super.viewDidLoad()
         
         nextButton.isEnabled = false
+        cameraService.prepare(previewView: previewView, cameraPosition: .front) { [weak self] success in
+            if success { self?.cameraService.start() }
+        }
+
     }
 
     
@@ -143,6 +149,7 @@ class LicensePlateScannerViewController: BaseViewController {
         videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
         if captureSession.canAddOutput(videoDataOutput) {
             captureSession.addOutput(videoDataOutput)
+  
             videoDataOutput.connection(with: AVMediaType.video)?.preferredVideoStabilizationMode = .off
         }
         
@@ -195,6 +202,7 @@ class LicensePlateScannerViewController: BaseViewController {
         
         // Check if we have any temporally stable numbers.
         if let sureNumber = numberTracker.getStableString() {
+            capturePhoto()
             showString(string: sureNumber)
             numberTracker.reset(string: sureNumber)
         }
@@ -236,10 +244,12 @@ class LicensePlateScannerViewController: BaseViewController {
             }
         }
     }
+
     
     // MARK: - UI drawing and interaction
     
     private func showString(string: String) {
+        Car.current.license = string
         captureSessionQueue.sync {
             self.captureSession.stopRunning()
             DispatchQueue.main.async {
@@ -254,11 +264,19 @@ class LicensePlateScannerViewController: BaseViewController {
                 ], range: NSRange(location: 4, length: string.length))
                 
                 self.licensePlateTextLabel.attributedText = attributedString
-                self.nextButton.backgroundColor = .systemBlue
                 self.nextButton.isEnabled = true
+                self.nextButton.backgroundColor = .systemBlue
             }
         }
     }
+    
+    //MARK: - capture photo
+    
+    private func capturePhoto() {
+         cameraService.capturePhoto { [weak self] image in
+            Car.current.licensePlateImage = image
+         }
+     }
     
     //MARK: - Navigation
     
@@ -289,3 +307,5 @@ extension LicensePlateScannerViewController: AVCaptureVideoDataOutputSampleBuffe
         }
     }
 }
+    
+ 

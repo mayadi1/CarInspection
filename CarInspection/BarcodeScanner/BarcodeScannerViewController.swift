@@ -17,12 +17,11 @@ class BarcodeScannerViewController: BaseViewController {
     @IBOutlet private var vinTextLabel: UILabel!
     @IBOutlet private var nextButton: UIButton!
     
-    private var captureSession:AVCaptureSession?
-    private var videoPreviewLayer:AVCaptureVideoPreviewLayer?
-    private var captureDevice:AVCaptureDevice?
- 
-    private var lastCapturedCode:String?
-    private var allowedTypes: [AVMetadataObject.ObjectType] = [.code128, .code39, .code93, .upce, .code39Mod43, .pdf417, .ean13, .ean8, .aztec]
+    private var captureSession: AVCaptureSession?
+    private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    private var captureDevice: AVCaptureDevice?
+    
+    private var allowedTypes: [AVMetadataObject.ObjectType] = [.code39, .upce]
 
     // MARK: - View controller methods
     
@@ -32,7 +31,6 @@ class BarcodeScannerViewController: BaseViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         nextButton.isEnabled = false
         
@@ -74,7 +72,6 @@ class BarcodeScannerViewController: BaseViewController {
                     
                     // Start video capture.
                     captureSession.startRunning()
-                    
                 }
             }
         } catch let error1 as NSError {
@@ -91,7 +88,6 @@ class BarcodeScannerViewController: BaseViewController {
         if self.allowedTypes.contains(metadataObj.type) {
  
             if let code = metadataObj.stringValue {
-                lastCapturedCode = code
                 captureSession?.stopRunning()
             
                 let attributedString = NSMutableAttributedString(string: "Vin: \(code)", attributes: [
@@ -105,11 +101,12 @@ class BarcodeScannerViewController: BaseViewController {
                 
                 vinTextLabel.attributedText = attributedString
                 nextButton.backgroundColor = .systemBlue
-                nextButton.isEnabled = true
                 Car.current.vin = code
+                nextButton.isEnabled = true
              }
         }
     }
+ 
 }
 
 extension BarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {

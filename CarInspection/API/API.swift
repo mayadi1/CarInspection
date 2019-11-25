@@ -11,7 +11,7 @@
 class VehicleAPI {
     
     static let shared = VehicleAPI()
-    
+ 
     func decodeVin(vin: String, completionHandler: @escaping (_ error: Error?) -> Void) {
         let endpoint = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/\(vin)?format=JSON"
         Alamofire.request(endpoint, parameters: nil, encoding: JSONEncoding.default).responseJSON {
@@ -27,6 +27,8 @@ class VehicleAPI {
                 Car.current.transmissionStyle = transmissionStyle
                 Car.current.bodyClass = bodyClass
                 completionHandler(nil)
+            } else {
+            completionHandler(response.error)
             }
         }
     }

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Mohamed Ayadi. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Car {
     
@@ -19,5 +19,6 @@ class Car {
     var transmissionStyle: String?
     var bodyClass: String?
     var license: String?
+    var licensePlateImage: UIImage?
 }
  
